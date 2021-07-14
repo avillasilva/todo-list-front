@@ -17,15 +17,12 @@ function connectToAPI(username, password, api) {
     t.getNotes =  () => t._notes;
     t.getCategories = () => t._categories;
 
-    function fetchData(url) {
-        return fetch(api+url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            credentials: "include",
-        }).then((response) => response.json());
-    }
+    t.makeRequest = (url, body) => {
+        body.method = body.method || "GET";
+        body.credentials = body.credentials || "include";
+        body.headers = body.headers || { "Content-Type": "application/x-www-form-urlencoded" };
+        return fetch(api+url, body).then((response) => response.json());
+    };
 
     return fetch(api+"todorest/login", {
         method: "POST",
@@ -36,10 +33,10 @@ function connectToAPI(username, password, api) {
         }
     }).then((response) => {
         t.username = username;
-        fetchData('todorest/tasklist').then((i) => t._tasklists = i);
-        fetchData('todorest/task').then((i) => t._tasks = i);
-        fetchData('notes/note').then((i) => t._notes = i);
-        fetchData('todorest/category').then((i) => t._categories = i);
+        t.makeRequest('todorest/tasklist').then((i) => t._tasklists = i);
+        t.makeRequest('todorest/task').then((i) => t._tasks = i);
+        t.makeRequest('notes/note').then((i) => t._notes = i);
+        t.makeRequest('todorest/category').then((i) => t._categories = i);
         return t;
     });
 }
