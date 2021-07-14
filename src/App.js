@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import connectToAPI from './api/Bridge';
+import Dashboard from './components/Dashboard';
+import RegisterForm from './components/RegisterForm';
 
 function App() {
 
@@ -35,16 +37,17 @@ function App() {
   const Logout = () => {
     setUser({name:""})
   }
+
+  const Registrar = () => {
+    <RegisterForm/>
+  }
   
   return (
     <div className="App">
       {(user.name != "") ? (
-        <div className="welcome">
-          <h2>Welcome, <span>{user.name}</span></h2>
-          <button onClick={Logout}>Logout</button>
-        </div> 
+        <Dashboard/>
       ) : (
-        <LoginForm Login={Login} error={error}/>
+        <LoginForm Login={Login} error={error} Registrar={Registrar}/>
       )}
     </div>
   );
