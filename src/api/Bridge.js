@@ -44,4 +44,20 @@ function connectToAPI(username, password, api) {
     });
 }
 
-export default connectToAPI;
+function registerToAPI(username, password, email, api) {
+    api = api || API_SERVER;
+    username = encodeURIComponent(username);
+    password = encodeURIComponent(password);
+    email = encodeURIComponent(email);
+
+    return fetch(api+"todorest/register", {
+        method: "POST",
+        credentials: "include",
+        body: "username="+username+"&email="+email+"&password="+password,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    });
+}
+
+export {connectToAPI, registerToAPI};
