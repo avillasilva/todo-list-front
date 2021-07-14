@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import {connectToAPI, registerToAPI} from './api/Bridge';
 import Dashboard from './components/Dashboard';
-import RegisterForm from './components/RegisterForm';
+// import RegisterForm from './components/RegisterForm';
 
 function App() {
 
@@ -33,13 +33,13 @@ function App() {
   }
 
   const Logout = () => {
-    setUser({name:""})
+    setUser({name:"", email:"", password:""})
   }
   
   return (
     <div className="App">
-      {(user.name != "") ? (
-        <Dashboard/>
+      {(user.name !== "") ? (
+        <Dashboard user={user} Logout={Logout} />
       ) : (
         <LoginForm Login={Login} error={error} Registrar={Register}/>
       )}
