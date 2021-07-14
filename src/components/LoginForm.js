@@ -16,7 +16,7 @@ function LoginForm({ Login, error, Registrar }) {
     return (
         <div>
             {(register) ? (
-                <RegisterForm />
+                <RegisterForm Registrar={Registrar} error={error} />
             ) : (
                 <form onSubmit={submitHandler}>
                     <div className='form-inner'>

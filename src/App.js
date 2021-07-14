@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import logo from './logo.svg';
 import './App.css';
 import LoginForm from './components/LoginForm';
-import connectToAPI from './api/Bridge';
+import {connectToAPI, registerToAPI} from './api/Bridge';
 import Dashboard from './components/Dashboard';
 import RegisterForm from './components/RegisterForm';
 
@@ -21,25 +21,19 @@ function App() {
       console.log("Details do not match")
       setError("Details do not match")
     });
+  }
 
-    // if (details.email == adminUser.email && details.password == adminUser.password) {
-    //   console.log("Logged in")
-    //   setUser( {
-    //     name: details.name,
-    //     email: details.email
-    //   })
-    // } else {
-    //   console.log("Details do not match")
-    //   setError("Details do not match")
-    // }
+  const Register = details => {
+    registerToAPI(details.name, details.password, details.email).then((det) => {
+      Login(details);
+    }).catch((err) => {
+      console.log("Details do not match")
+      setError("Details do not match")
+    });
   }
 
   const Logout = () => {
     setUser({name:""})
-  }
-
-  const Registrar = () => {
-    <RegisterForm/>
   }
   
   return (
@@ -47,7 +41,7 @@ function App() {
       {(user.name != "") ? (
         <Dashboard/>
       ) : (
-        <LoginForm Login={Login} error={error} Registrar={Registrar}/>
+        <LoginForm Login={Login} error={error} Registrar={Register}/>
       )}
     </div>
   );

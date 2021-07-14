@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-function RegisterForm({Register, error}) {
+function RegisterForm({Registrar, error}) {
     const [details, setDetails] = useState({name:"", email:"", password:""});
 
     const submitHandler = e =>{
         e.preventDefault();
 
-        Register(details);
+        Registrar(details);
     }
     
     return (
