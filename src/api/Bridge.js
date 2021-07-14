@@ -18,6 +18,7 @@ function connectToAPI(username, password, api) {
     t.getCategories = () => t._categories;
 
     t.makeRequest = (url, body) => {
+        body = body || {};
         body.method = body.method || "GET";
         body.credentials = body.credentials || "include";
         body.headers = body.headers || { "Content-Type": "application/x-www-form-urlencoded" };
