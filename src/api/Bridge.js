@@ -25,6 +25,20 @@ function connectToAPI(username, password, api) {
         return fetch(api+url, body).then((response) => response.json());
     };
 
+    t.deleteNote = (id) => {         
+        return t.makeRequest(`notes/note/${id}`, {method: "DELETE"}).then(() => t._notes = t._notes.filter(e => e.id !== id));
+    }
+
+    t.postNote = (note) => {         
+        return t.makeRequest(`notes/note/`, {
+            method: "POST", 
+            body: JSON.stringify(note),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => t.makeRequest('notes/note/').then((i) => t._notes = i))
+    }
+
     return fetch(api+"todorest/login", {
         method: "POST",
         credentials: "include",
@@ -34,11 +48,11 @@ function connectToAPI(username, password, api) {
         }
     }).then((response) => {
         t.username = username;
-        t.makeRequest('todorest/tasklist').then((i) => t._tasklists = i);
-        t.makeRequest('todorest/task').then((i) => t._tasks = i);
-        t.makeRequest('notes/note').then((i) => t._notes = i);
-        t.makeRequest('todorest/category').then((i) => t._categories = i);
-        return t;
+        return t.makeRequest('todorest/tasklist').then((i) => t._tasklists = i).then(()=>
+        t.makeRequest('todorest/task').then((i) => t._tasks = i).then(()=>
+        t.makeRequest('notes/note').then((i) => t._notes = i).then(()=>
+        t.makeRequest('todorest/category').then((i) => { t._categories = i; return t}))));
+        // return t;
     });
 }
 

@@ -11,8 +11,6 @@ function LoginForm({ Login, error, Registrar }) {
         Login(details);
     }
 
-    console.log(register);
-
     return (
         <div>
             {(register) ? (

@@ -2,11 +2,13 @@
 import React from 'react'
 import './Note.css'
 
-function Note({user, note}) {
+function Note({user, note, Refresh}) {
 
     function deleteNote () {
-        alert("Are you sure you want to delete the note?")
+        // alert("Are you sure you want to delete the note?")
+        user.deleteNote(note.id).then(() => {Refresh(user.getNotes())});
     }
+
     
     return (
         <div className="note">
