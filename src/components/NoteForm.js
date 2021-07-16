@@ -2,47 +2,50 @@ import React, { useState } from 'react'
 // import React from 'react'
 import './Forms.css'
 
-function NoteForm({ user, Refresh }) {
+function NoteForm({ user, Refresh, note, editRefresh }) {
 
-    // function deleteNote () {
-    //     alert("Are you sure you want to delete the note?")
-    //     user.deleteNote(note.id).then(() => {Refresh(user.getNotes())});
-    // }
-
-    const [details, setDetailsNote] = useState({ title: "", content: "", tasklist: "" });
+    const [detailsNote, setDetailsNote] = useState({
+        title: (note === undefined) ? "" : note.title,
+        content: (note === undefined) ? "" : note.content,
+        tasklist: (note === undefined) ? "" : note.tasklist.id
+    });
 
     const submitHandler = e => {
         e.preventDefault();
 
-        user.postNote(details).then(() => { Refresh(user.getNotes()) });
+        if (note === undefined) {
+            user.postNote(detailsNote).then(() => { Refresh(user.getNotes()) });
+        }
+        else {
+            user.putNote(note.id, detailsNote).then(() => { Refresh(user.getNotes()) });
+            editRefresh(false)
+        }
     }
-
-    console.log(user.getTaskLists())
 
     return (
         <div className="box-form">
             <form onSubmit={submitHandler}>
                 <div className='form-inner'>
-                    <h2>Create new note</h2>
+                    {(note === undefined) ? <h2>Create new Note</h2> : <h2>Edit Note</h2>}
                     <div className="form-group">
                         <label htmlFor="title">Title:</label>
-                        <input type="text" name="title" id="title" onChange={e => setDetailsNote({ ...details, title: e.target.value })} value={details.title} />
+                        <input type="text" name="title" id="title" onChange={e => setDetailsNote({ ...detailsNote, title: e.target.value })} value={(note === undefined) ? "" : detailsNote.title} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="content">Content:</label>
-                        <input type="textarea" name="content" id="content" onChange={e => setDetailsNote({ ...details, content: e.target.value })} value={details.content} />
+                        <input type="textarea" name="content" id="content" onChange={e => setDetailsNote({ ...detailsNote, content: e.target.value })} value={(note === undefined) ? "" : detailsNote.content} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="content">Tasklist:</label>
-                        <select onChange={e => setDetailsNote({ ...details, tasklist: e.target.value })}>
-                            <option>Select One Tasklist</option>
+                        <select onChange={e => setDetailsNote({ ...detailsNote, tasklist: e.target.value })} required>
+                            <option value="">Select One Tasklist</option>
                             {
                                 user.getTaskLists().map(e => <option key={e.id} value={e.id}>{e.title}</option>)
                             }
 
                         </select>
                     </div>
-                    <input type="submit" value="Create note" />
+                    <input type="submit" value={(note === undefined) ? "Create" : "Save"} onClick={submitHandler} />
                 </div>
             </form>
         </div>
