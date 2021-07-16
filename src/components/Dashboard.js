@@ -19,14 +19,18 @@ function Dashboard({user, Logout}) {
         <div>
             <header>
                 <nav>
-                    <button className={display === "Notes" ? 'active' : ''} onClick={e => setDisplay("Notes")}>Notes</button>
-                    <button className={display === "Tasks" ? 'active' : ''} onClick={e => setDisplay("Tasks")}>Tasks</button>
-                    <button className="right-btn" onClick={e => Logout()}>Logout</button>
+                    <div>
+                        <button className={display === "Notes" ? 'active' : ''} onClick={e => setDisplay("Notes")}>Notes</button>
+                        <button className={display === "Tasks" ? 'active' : ''} onClick={e => setDisplay("Tasks")}>Tasks</button>
+                    </div>
+                    <div>
+                        <button className="right-btn" onClick={e => Logout()}>Logout</button>  
+                    </div>                 
                 </nav>
             </header>
             <section>
-                <div className="">
-                    <div>
+                <div className="corpo-dash">
+                    <div className="box-form">
                         <form onSubmit={submitHandler}>
                             <div className='form-inner'>
                                 <h2>Create new note</h2>
@@ -38,19 +42,24 @@ function Dashboard({user, Logout}) {
                                     <label htmlFor="content">Content:</label>
                                     <input type="textarea" name="content" id="content" onChange={e => setDetailsNote({ ...details, content: e.target.value })} value={details.content} />
                                 </div>
-                                <select>
-                                    <option value="1">tasklist 1</option>
-                                    <option value="2">tasklist 2</option>
-                                </select>
+                                <div className="form-group">
+                                <label htmlFor="content">Tasklist:</label>
+                                    <select>
+                                        <option value="1">tasklist 1</option>
+                                        <option value="2">tasklist 2</option>
+                                    </select>
+                                </div>
                                 <input type="submit" value="Create note" />
                             </div>
                         </form>
                     </div>
-                    {(display === "Notes") ? (
-                        user.getNotes().map(e => <Note key={e.id} user={user} note={e} Refresh={setDisplayNotes} />)
-                    ) : (
-                        console.log("eeee")
-                    )}
+                    <div className="notes">
+                       {(display === "Notes") ? (
+                            user.getNotes().map(e => <Note key={e.id} user={user} note={e} Refresh={setDisplayNotes} />)
+                        ) : (
+                            console.log("eeee")
+                        )} 
+                    </div>                    
                 </div>
             </section>
         </div>
