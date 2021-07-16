@@ -14,7 +14,7 @@ function RegisterForm({Registrar, error}) {
         <form onSubmit={submitHandler}>
             <div className='form-inner form-reg'>
                 <h2>Register</h2>
-                {error != "" ? (<div className="error">{error}</div>) : ""}
+                {error !== "" ? (<div className="error">{error}</div>) : ""}
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" id="name" onChange={ e => setDetails({...details, name: e.target.value})} value={details.name}/>
