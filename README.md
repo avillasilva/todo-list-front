@@ -1,4 +1,17 @@
-# Getting Started with Create React App
+# todo-list-front
+
+Projeto de Tópicos em Engenharia de Software.
+
+## Integrantes
+AVILLA ITALO DE SOUZA SILVA <br>
+EMMANUELLA FAUSTINO ALBUQUERQUE <br>
+LUYZA ELLEN DOMINGOS DO NASCIMENTO <br>
+NAIARA RODRIGUES DE BRITO <br>
+PABLO SURIA PEREIRA MOUSINHO <br>
+VICTOR JOSE DE SOUSA KOEHLER <br>
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

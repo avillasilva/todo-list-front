@@ -1,11 +1,53 @@
-.task {
+/* .task {
   margin: 12px 8px;
   padding: 12px 16px;
   box-sizing: border-box;
   background-color: #CCC;
   min-width: 600px;
-}
+} */
 
 .tasklist {
   background-color: #BBB;
+  width: 600px;
+  border: #53565A solid 2px;
+}
+
+.tasklist-container {
+  width: auto;
+}
+
+.task {
+  min-width: 600px;
+  margin: 1.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  width: auto;
+  border: #53565A solid 2px;
+}
+
+.note h3,
+.note p {
+  margin: 1rem;
+}
+
+.del-button {
+  background: #c23b22;
+  margin: 1rem;
+  border-radius: 8px;
+}
+
+.edit-button {
+  background: #038b59;
+  margin: 1rem;
+  border-radius: 8px;
+}
+
+.edit-button:hover {
+  background: #661506;
+}
+
+.del-button:hover {
+  background: #034b31;
 }
