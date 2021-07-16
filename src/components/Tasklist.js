@@ -1,5 +1,6 @@
 // import React, { useState } from 'react'
 import React from 'react'
+import Task from './Task'
 import "./Task.css"
 
 function Tasklist({user, tasklist, Refresh}) {
@@ -11,9 +12,12 @@ function Tasklist({user, tasklist, Refresh}) {
 
     
     return (
-        <div className="task">
+        <div className="task tasklist">
            <h3>{tasklist.title}</h3>
            <button className="del-button" onClick={e => deleteTasklist()}>Delete Tasklist</button>
+            <div className="tasklist-container">{
+                (user.getTaskListsTasks(tasklist).map(e => <Task key={e.id} user={user} task={e} Refresh={Refresh} />))
+            }</div>
            {/* (tasklist.task.map(e => <Task key={e.id} user={user} task={e} Refresh={setDisplayTasks} />)) */}
         </div>
     )

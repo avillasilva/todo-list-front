@@ -16,6 +16,10 @@ function connectToAPI(username, password, api) {
     t.getTasks = () => t._tasks;
     t.getNotes = () => t._notes;
     t.getCategories = () => t._categories;
+    t.getTaskListsTasks = (tl) => {
+        if (!Number.isInteger(tl)) tl = tl.id;
+        return t.getTasks().filter((i) => i.owner_list.id==tl);
+    }
 
     t.makeRequest = (url, body) => {
         body = body || {};
