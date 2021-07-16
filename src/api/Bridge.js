@@ -57,6 +57,16 @@ function connectToAPI(username, password, api) {
         }).then(() => t.makeRequest('todorest/task/').then((i) => t._tasks = i))
     }
 
+    t.postTaskList = (task) => {
+        return t.makeRequest(`todorest/tasklist/`, {
+            method: "POST",
+            body: JSON.stringify(task),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => t.makeRequest('todorest/tasklist/').then((i) => t._tasks = i))
+    }
+
     return fetch(api + "todorest/login", {
         method: "POST",
         credentials: "include",
