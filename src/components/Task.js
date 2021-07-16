@@ -21,8 +21,8 @@ function Task({ user, task, Refresh }) {
       <h3>{task.title}</h3>
       <p>{task.description}</p>
       <p>{task.deadline}</p>
-      <button onClick={e => deleteTask()}>Delete task</button>
-      <button onClick={e => setEdit(true)}>Edit task</button>
+      <button className="del-button"  onClick={e => deleteTask()}>Delete task</button>
+      <button className="edit-button"  onClick={e => setEdit(true)}>Edit task</button>
       <input type = "checkbox"/>
     </div>
     )
