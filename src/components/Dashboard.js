@@ -32,14 +32,14 @@ function Dashboard({user, Logout}) {
             <section>
                 <div className="corpo-dash">
                     {(display === "Notes") ? <NoteForm user={user} Refresh={setDisplayNotes} /> : "" }
-
-                    {(display === "Notes") ? (
-                        user.getNotes().map(e => <Note key={e.id} user={user} note={e} Refresh={setDisplayNotes} />)
-                    ) : (
-                        console.log("eeee")
-                    )}
-                </div>
-                
+                    <div className="notes">                     
+                        {(display === "Notes") ? (
+                            user.getNotes().map(e => <Note key={e.id} user={user} note={e} Refresh={setDisplayNotes} />)
+                        ) : (
+                            console.log("eeee")
+                        )}
+                    </div>                        
+                </div>                
             </section>
         </div>
     )
