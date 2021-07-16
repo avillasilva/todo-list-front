@@ -40,6 +40,16 @@ function connectToAPI(username, password, api) {
     t.deleteTasklist = (id) => {
         return t.makeRequest(`todorest/tasklist/${id}`, { method: "DELETE" }).then(() => t._tasklists = t._tasklists.filter(e => e.id !== id));
     }
+    
+    t.editNote = (id, note) => {
+        return t.makeRequest(`notes/note/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(note),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => t.makeRequest('notes/note/').then((i) => t._notes = i))
+    }
 
     t.postNote = (note) => {
         return t.makeRequest(`notes/note/`, {
