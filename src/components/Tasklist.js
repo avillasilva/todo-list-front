@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Task from './Task'
+
 import "./Task.css"
 import TaskListForm from './TaskListForm';
 
@@ -21,7 +23,9 @@ function Tasklist({user, tasklist, Refresh}) {
            <h3>{tasklist.title}</h3>
            <button className="del-button" onClick={e => deleteTasklist()}>Delete Tasklist</button>
            <button className="del-button" onClick={e => setEdit(true)}>Edit Tasklist</button>
-           {/* (tasklist.task.map(e => <Task key={e.id} user={user} task={e} Refresh={setDisplayTasks} />)) */}
+          <div className="tasklist-container">{
+                (user.getTaskListsTasks(tasklist).map(e => <Task key={e.id} user={user} task={e} Refresh={Refresh} />))
+            }</div>
         </div>
         )
     )
