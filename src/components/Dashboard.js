@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
+import './Dashboard.css';
 import Task from './Task'
 import Note from './Note';
 import NoteForm from './NoteForm';
-import './Dashboard.css';
+import TaskForm from './TaskForm';
+
 
 
 function Dashboard({ user, Logout }) {
@@ -29,7 +31,7 @@ function Dashboard({ user, Logout }) {
             </header >
             <section>
                 <div className="corpo-dash">
-                    {(display === "Notes") ? <NoteForm user={user} Refresh={setDisplayNotes} /> : ""}
+                    {(display === "Notes") ? <NoteForm user={user} Refresh={setDisplayNotes} /> : <TaskForm user={user} Refresh={setDisplayTasks} />}
                     <div className="notes">
                         {(display === "Notes") ? (
                             user.getNotes().map(e => <Note key={e.id} user={user} note={e} Refresh={setDisplayNotes} />)

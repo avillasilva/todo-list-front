@@ -16,6 +16,7 @@ function Task({ user, task, Refresh }) {
       <p>{task.description}</p>
       <p>{task.deadline}</p>
       <button onClick={e => deleteTask()}>Delete task</button>
+      <input type = "checkbox"/>
     </div>
   )
 }

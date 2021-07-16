@@ -14,7 +14,7 @@ input,
 button,
 .reg-btn {
   appearance: none;
-  background: none;
+  background: none; 
   border: none;
   outline: none;
 }
