@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import Task from './Tasks'
+import Task from './Task'
 import Note from './Note';
 import NoteForm from './NoteForm';
 import './Dashboard.css';
@@ -10,7 +10,7 @@ function Dashboard({ user, Logout }) {
     const [display, setDisplay] = useState("Notes");
     const [notas, setDisplayNotes] = useState(user.getNotes());
     const [tasks, setDisplayTasks] = useState(user.getTasks());
-    const [details, setDetailsNote] = useState({ title: "", content: "", tasklist: "1" });
+    const [detailsNote, setDetailsNote] = useState({ title: "", content: "", tasklist: "" });
     const [detailsTask, setDetailsTask] = useState({ title: "", description: "", deadline: "", list_id: 1, category_id: 2 });
 
 

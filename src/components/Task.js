@@ -1,29 +1,23 @@
-import './Task.css';
-import React from 'react';
+// import React, { useState } from 'react'
+import React from 'react'
+import './Task.css'
 
-function Task(props) {
+function Task({ user, task, Refresh }) {
+
+  function deleteTask() {
+    // alert("Are you sure you want to delete the note?")
+    user.deleteTask(task.id).then(() => { Refresh(user.getTasks()) });
+  }
+
+
   return (
-    <div className="Task">
-      <header className="Task-header">
-        <h1 className="Task-title">
-          Title:
-        </h1>
-        <h3 className="Task-header">
-          Deadline:
-        </h3>
-      </header>
-      <div className="Task-description">
-        <p className="Task-description-text">
-            sadasdasd
-        </p>
-        
-        status
-
-        categorias
-
-      </div>
+    <div className="task">
+      <h3>{task.title}</h3>
+      <p>{task.description}</p>
+      <p>{task.deadline}</p>
+      <button onClick={e => deleteTask()}>Delete task</button>
     </div>
-  );
+  )
 }
 
 export default Task;

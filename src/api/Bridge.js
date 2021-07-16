@@ -29,6 +29,10 @@ function connectToAPI(username, password, api) {
         return t.makeRequest(`notes/note/${id}`, { method: "DELETE" }).then(() => t._notes = t._notes.filter(e => e.id !== id));
     }
 
+    t.deleteTask = (id) => {
+        return t.makeRequest(`todorest/task/${id}`, { method: "DELETE" }).then(() => t._tasks = t._tasks.filter(e => e.id !== id));
+    }
+
     t.postNote = (note) => {
         return t.makeRequest(`notes/note/`, {
             method: "POST",

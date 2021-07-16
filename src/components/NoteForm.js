@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // import React from 'react'
 import './Forms.css'
 
-function NoteForm({user, Refresh}) {
+function NoteForm({ user, Refresh }) {
 
     // function deleteNote () {
     //     alert("Are you sure you want to delete the note?")
@@ -14,11 +14,11 @@ function NoteForm({user, Refresh}) {
     const submitHandler = e => {
         e.preventDefault();
 
-        user.postNote(details).then(() => {Refresh(user.getNotes())});
+        user.postNote(details).then(() => { Refresh(user.getNotes()) });
     }
 
     console.log(user.getTaskLists())
-    
+
     return (
         <div className="box-form">
             <form onSubmit={submitHandler}>
@@ -33,14 +33,13 @@ function NoteForm({user, Refresh}) {
                         <input type="textarea" name="content" id="content" onChange={e => setDetailsNote({ ...details, content: e.target.value })} value={details.content} />
                     </div>
                     <div className="form-group">
-                    <label htmlFor="content">Tasklist:</label>
+                        <label htmlFor="content">Tasklist:</label>
                         <select onChange={e => setDetailsNote({ ...details, tasklist: e.target.value })}>
                             <option>Select One Tasklist</option>
                             {
-                                user.getTaskLists().map(e => <option value= {e.id}>{e.title}</option>)
+                                user.getTaskLists().map(e => <option key={e.id} value={e.id}>{e.title}</option>)
                             }
-                            
-                            
+
                         </select>
                     </div>
                     <input type="submit" value="Create note" />
