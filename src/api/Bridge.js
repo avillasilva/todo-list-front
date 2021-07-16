@@ -64,7 +64,7 @@ function connectToAPI(username, password, api) {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(() => t.makeRequest('todorest/tasklist/').then((i) => t._tasks = i))
+        }).then(() => t.makeRequest('todorest/tasklist/').then((i) => t._tasklists = i))
     }
 
     return fetch(api + "todorest/login", {
