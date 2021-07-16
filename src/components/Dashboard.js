@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import Note from './Note.js'
 import Task from './Tasks'
+import Note from './Note';
+import NoteForm from './NoteForm';
 import './Dashboard.css';
 
 
@@ -12,18 +13,6 @@ function Dashboard({ user, Logout }) {
     const [details, setDetailsNote] = useState({ title: "", content: "", tasklist: "1" });
     const [detailsTask, setDetailsTask] = useState({ title: "", description: "", deadline: "", list_id: 1, category_id: 2 });
 
-    const submitHandler = e => {
-        e.preventDefault();
-
-        user.postNote(details)
-    }
-
-    const taskSubmitHandler = e => {
-        e.preventDefault();
-
-        console.log(detailsTask)
-        user.postTask(detailsTask)
-    }
 
     return (
         <div>
@@ -37,7 +26,7 @@ function Dashboard({ user, Logout }) {
                         <button className="right-btn" onClick={e => Logout()}>Logout</button>
                     </div>
                 </nav>
-            </header>
+            </header >
             <section>
                 <div className="corpo-dash">
                     {(display === "Notes") ? <NoteForm user={user} Refresh={setDisplayNotes} /> : ""}
@@ -49,8 +38,8 @@ function Dashboard({ user, Logout }) {
                         )}
                     </div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     )
 }
 

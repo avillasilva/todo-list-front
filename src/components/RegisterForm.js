@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import './Forms.css';
 
 function RegisterForm({Registrar, error}) {
     const [details, setDetails] = useState({name:"", email:"", password:""});
@@ -11,9 +12,9 @@ function RegisterForm({Registrar, error}) {
     
     return (
         <form onSubmit={submitHandler}>
-            <div className='form-inner'>
-                <h2>Login</h2>
-                {error != "" ? (<div className="error">{error}</div>) : ""}
+            <div className='form-inner form-reg'>
+                <h2>Register</h2>
+                {error !== "" ? (<div className="error">{error}</div>) : ""}
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" id="name" onChange={ e => setDetails({...details, name: e.target.value})} value={details.name}/>
@@ -26,7 +27,7 @@ function RegisterForm({Registrar, error}) {
                     <label htmlFor="password">Password:</label>
                     <input type="password" name="password" id="password" onChange={ e => setDetails({...details, password: e.target.value})} value={details.password}/>
                 </div>
-                <input type="submit" value="Registrar"/>
+                <input type="submit" value="Register"/>
             </div>
         </form>
     )

@@ -15,7 +15,7 @@ function Note({user, note, Refresh}) {
            <h3>{note.title}</h3>
            <p>{note.content}</p>
            <p>{note.date}</p>
-           <button onClick={e => deleteNote()}>Delete note</button>
+           <button className="del-button" onClick={e => deleteNote()}>Delete note</button>
         </div>
     )
 }
