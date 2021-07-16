@@ -3,6 +3,7 @@ import './Dashboard.css';
 import Tasklist from './Tasklist';
 import Task from './Task'
 import Note from './Note';
+import TaskListForm from './TaskListForm';
 import NoteForm from './NoteForm';
 import TaskForm from './TaskForm';
 
@@ -36,7 +37,7 @@ function Dashboard({ user, Logout }) {
                 <div className="corpo-dash">
                     {
                     (display === "Tasklists") ? 
-                        "": 
+                        <TaskListForm user={user} Refresh={setDisplayTasklists}/>: 
                         ((display === "Notes") ? 
                             <NoteForm user={user} Refresh={setDisplayNotes} /> :
                             <TaskForm user={user} Refresh={setDisplayTasks} />)

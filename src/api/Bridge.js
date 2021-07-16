@@ -16,6 +16,10 @@ function connectToAPI(username, password, api) {
     t.getTasks = () => t._tasks;
     t.getNotes = () => t._notes;
     t.getCategories = () => t._categories;
+    t.getTaskListsTasks = (tl) => {
+        if (!Number.isInteger(tl)) tl = tl.id;
+        return t.getTasks().filter((i) => i.owner_list.id==tl);
+    }
 
     t.makeRequest = (url, body) => {
         body = body || {};
@@ -33,6 +37,10 @@ function connectToAPI(username, password, api) {
         return t.makeRequest(`todorest/task/${id}`, { method: "DELETE" }).then(() => t._tasks = t._tasks.filter(e => e.id !== id));
     }
 
+    t.deleteTasklist = (id) => {
+        return t.makeRequest(`todorest/tasklist/${id}`, { method: "DELETE" }).then(() => t._tasklists = t._tasklists.filter(e => e.id !== id));
+    }
+    
     t.editNote = (id, note) => {
         return t.makeRequest(`notes/note/${id}`, {
             method: "PUT",
@@ -70,7 +78,17 @@ function connectToAPI(username, password, api) {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(() => t.makeRequest('todorest/tasklist/').then((i) => t._tasks = i))
+        }).then(() => t.makeRequest('todorest/tasklist/').then((i) => t._tasklists = i))
+    }
+
+    t.putTaskList = (id, tasklist) => {
+        return t.makeRequest(`todorest/tasklist/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(tasklist),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => t.makeRequest('todorest/tasklist/').then((i) => t._tasklists = i))
     }
 
     return fetch(api + "todorest/login", {
@@ -85,7 +103,20 @@ function connectToAPI(username, password, api) {
         return t.makeRequest('todorest/tasklist').then((i) => t._tasklists = i).then(() =>
             t.makeRequest('todorest/task').then((i) => t._tasks = i).then(() =>
                 t.makeRequest('notes/note').then((i) => t._notes = i).then(() =>
-                    t.makeRequest('todorest/category').then((i) => { t._categories = i; return t }))));
+                    t.makeRequest('todorest/category').then((i) => { 
+                        if (i.length == 0) {
+                            return t.makeRequest(`todorest/category/`, {
+                                method: "POST",
+                                body: JSON.stringify({title:"default", description:"default"}),
+                                headers: {
+                                    "Content-Type": "application/json"
+                                }
+                            }).then(() => t.makeRequest('todorest/category/').then((i) => t._categories = i))
+                            .then(() => t)
+                        } else {
+                            t._categories = i; return t
+                        }
+                    }))));
         // return t;
     });
 }
