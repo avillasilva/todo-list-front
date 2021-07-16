@@ -6,7 +6,7 @@ function Tasklist({user, tasklist, Refresh}) {
 
     function deleteTasklist () {
         // alert("Are you sure you want to delete the note?")
-        //user.deleteNote(note.id).then(() => {Refresh(user.getTaskLists())});
+        user.deleteTasklist(tasklist.id).then(() => {Refresh(user.getTaskLists())});
     }
 
     
