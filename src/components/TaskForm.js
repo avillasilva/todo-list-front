@@ -9,7 +9,7 @@ function TaskForm({ user, Refresh, task, editRefresh}) {
     //     user.deleteNote(note.id).then(() => {Refresh(user.getNotes())});
     // }
 
-    const [details, setDetailsTask] = useState({ title: "", finished:"", tasklist: "", category:user.getCategories()[0].id, description:"", deadline:""  });
+    const [details, setDetailsTask] = useState({ title: "", finished:false, tasklist: "", category:user.getCategories()[0].id, description:"", deadline:""  });
 
     const submitHandler = e => {
         e.preventDefault();
@@ -18,7 +18,7 @@ function TaskForm({ user, Refresh, task, editRefresh}) {
             user.postTask(details).then(() => { Refresh(user.getTasks()) });
         }
         else{
-            user.putTask(task.id,details).then(() => { Refresh(user.getTasks()) });
+            user.editTask(task.id,details).then(() => { Refresh(user.getTasks()) });
             editRefresh(false)
         }
         

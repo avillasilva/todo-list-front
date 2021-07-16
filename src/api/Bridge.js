@@ -61,6 +61,16 @@ function connectToAPI(username, password, api) {
         }).then(() => t.makeRequest('notes/note/').then((i) => t._notes = i))
     }
 
+    t.editTask = (id, task) => {
+        return t.makeRequest(`todorest/task/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(task),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => t.makeRequest('todorest/task/').then((i) => t._tasks = i))
+    }
+
     t.postTask = (task) => {
         return t.makeRequest(`todorest/task/`, {
             method: "POST",
