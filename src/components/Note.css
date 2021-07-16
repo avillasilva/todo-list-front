@@ -16,3 +16,13 @@
   margin: 1rem;
   border-radius: 8px;
 }
+
+.edit-button {
+  background: #c23b22;
+  margin: 1rem;
+  border-radius: 8px;
+}
+
+.edit-button:hover {
+  background: #c23b22;
+}
