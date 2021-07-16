@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // import React from 'react'
 import './Forms.css'
 
-function TaskForm({ user, Refresh }) {
+function TaskForm({ user, Refresh, task, editRefresh}) {
 
     // function deleteNote () {
     //     alert("Are you sure you want to delete the note?")
@@ -14,7 +14,14 @@ function TaskForm({ user, Refresh }) {
     const submitHandler = e => {
         e.preventDefault();
 
-        user.postTask(details).then(() => { Refresh(user.getTasks()) });
+        if(task === undefined){
+            user.postTask(details).then(() => { Refresh(user.getTasks()) });
+        }
+        else{
+            user.putTask(task.id,details).then(() => { Refresh(user.getTasks()) });
+            editRefresh(false)
+        }
+        
     }
 
     console.log(user.getTaskLists())
@@ -23,10 +30,10 @@ function TaskForm({ user, Refresh }) {
         <div className="box-form">
             <form onSubmit={submitHandler}>
                 <div className='form-inner'>
-                    <h2>Create new task</h2>
+                    {(task === undefined) ? <h2>Create new task</h2> : <h2>Edit task</h2>}
                     <div className="form-group">
                         <label htmlFor="title">Title:</label>
-                        <input type="text" name="title" id="title" onChange={e => setDetailsTask({ ...details, title: e.target.value })} value={details.title} />
+                        <input type="text" value={(task === undefined) ? "" : task.title} name="title" id="title" onChange={e => setDetailsTask({ ...details, title: e.target.value })} value={details.title} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Description:</label>
@@ -46,7 +53,7 @@ function TaskForm({ user, Refresh }) {
 
                         </select>
                     </div>
-                    <input type="submit" value="Create task" />
+                    <input type="submit" value={(task === undefined) ? "Create": "Save"} onClick={submitHandler} />
                 </div>
             </form>
         </div>
