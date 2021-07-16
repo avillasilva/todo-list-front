@@ -14,7 +14,7 @@ function connectToAPI(username, password, api) {
 
     t.getTaskLists = () => t._tasklists;
     t.getTasks = () => t._tasks;
-    t.getNotes =  () => t._notes;
+    t.getNotes = () => t._notes;
     t.getCategories = () => t._categories;
 
     t.makeRequest = (url, body) => {
@@ -22,16 +22,16 @@ function connectToAPI(username, password, api) {
         body.method = body.method || "GET";
         body.credentials = body.credentials || "include";
         body.headers = body.headers || { "Content-Type": "application/x-www-form-urlencoded" };
-        return fetch(api+url, body).then((response) => response.json());
+        return fetch(api + url, body).then((response) => response.json());
     };
 
-    t.deleteNote = (id) => {         
-        return t.makeRequest(`notes/note/${id}`, {method: "DELETE"}).then(() => t._notes = t._notes.filter(e => e.id !== id));
+    t.deleteNote = (id) => {
+        return t.makeRequest(`notes/note/${id}`, { method: "DELETE" }).then(() => t._notes = t._notes.filter(e => e.id !== id));
     }
 
-    t.postNote = (note) => {         
+    t.postNote = (note) => {
         return t.makeRequest(`notes/note/`, {
-            method: "POST", 
+            method: "POST",
             body: JSON.stringify(note),
             headers: {
                 "Content-Type": "application/json"
@@ -39,19 +39,29 @@ function connectToAPI(username, password, api) {
         }).then(() => t.makeRequest('notes/note/').then((i) => t._notes = i))
     }
 
-    return fetch(api+"todorest/login", {
+    t.postTask = (task) => {
+        return t.makeRequest(`todorest/task/`, {
+            method: "POST",
+            body: JSON.stringify(task),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => t.makeRequest('todorest/task/').then((i) => t._tasks = i))
+    }
+
+    return fetch(api + "todorest/login", {
         method: "POST",
         credentials: "include",
-        body: "username="+username+"&password="+password,
+        body: "username=" + username + "&password=" + password,
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     }).then((response) => {
         t.username = username;
-        return t.makeRequest('todorest/tasklist').then((i) => t._tasklists = i).then(()=>
-        t.makeRequest('todorest/task').then((i) => t._tasks = i).then(()=>
-        t.makeRequest('notes/note').then((i) => t._notes = i).then(()=>
-        t.makeRequest('todorest/category').then((i) => { t._categories = i; return t}))));
+        return t.makeRequest('todorest/tasklist').then((i) => t._tasklists = i).then(() =>
+            t.makeRequest('todorest/task').then((i) => t._tasks = i).then(() =>
+                t.makeRequest('notes/note').then((i) => t._notes = i).then(() =>
+                    t.makeRequest('todorest/category').then((i) => { t._categories = i; return t }))));
         // return t;
     });
 }
@@ -62,14 +72,14 @@ function registerToAPI(username, password, email, api) {
     password = encodeURIComponent(password);
     email = encodeURIComponent(email);
 
-    return fetch(api+"todorest/register", {
+    return fetch(api + "todorest/register", {
         method: "POST",
         credentials: "include",
-        body: "username="+username+"&email="+email+"&password="+password,
+        body: "username=" + username + "&email=" + email + "&password=" + password,
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     });
 }
 
-export {connectToAPI, registerToAPI};
+export { connectToAPI, registerToAPI };
