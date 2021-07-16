@@ -9,7 +9,7 @@ function TaskForm({ user, Refresh }) {
     //     user.deleteNote(note.id).then(() => {Refresh(user.getNotes())});
     // }
 
-    const [details, setDetailsTask] = useState({ title: "", finished:"", tasklist: "", category:"1", description:"", deadline:""  });
+    const [details, setDetailsTask] = useState({ title: "", finished:"", tasklist: "", category:user.getCategories()[0].id, description:"", deadline:""  });
 
     const submitHandler = e => {
         e.preventDefault();
