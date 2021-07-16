@@ -9,13 +9,15 @@ function NoteForm({user, Refresh}) {
     //     user.deleteNote(note.id).then(() => {Refresh(user.getNotes())});
     // }
 
-    const [details, setDetailsNote] = useState({ title: "", content: "", tasklist: "1" });
+    const [details, setDetailsNote] = useState({ title: "", content: "", tasklist: "" });
 
     const submitHandler = e => {
         e.preventDefault();
 
         user.postNote(details).then(() => {Refresh(user.getNotes())});
     }
+
+    console.log(user.getTaskLists())
     
     return (
         <div className="box-form">
@@ -32,9 +34,13 @@ function NoteForm({user, Refresh}) {
                     </div>
                     <div className="form-group">
                     <label htmlFor="content">Tasklist:</label>
-                        <select>
-                            <option value="1">tasklist 1</option>
-                            <option value="2">tasklist 2</option>
+                        <select onChange={e => setDetailsNote({ ...details, tasklist: e.target.value })}>
+                            <option>Select One Tasklist</option>
+                            {
+                                user.getTaskLists().map(e => <option value= {e.id}>{e.title}</option>)
+                            }
+                            
+                            
                         </select>
                     </div>
                     <input type="submit" value="Create note" />
